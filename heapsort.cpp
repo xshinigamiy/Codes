@@ -1,55 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void findMax(int a[], int n, int k) {
-	deque<int> Q;
-	Q.clear();
-	for (int i = 0; i < k; ++i) {
-		// if()
-		while((int)Q.size() > 0 && a[i] >= a[Q.back()])
-			Q.pop_back();
-		Q.push_back(i);
-	}
-
-	for (int i = k; i < n; ++i) {
-		cout << a[Q.front()] << " ";
-		while((int)Q.size() > 0 && Q.front() <= (i - k))//element is out of the window
-			Q.pop_front();
-
-		while((int)Q.size() > 0 && a[i] >= a[Q.back()])
-			Q.pop_back();
-
-		Q.push_back(i);
-	}
-
-	cout << a[Q.front()] << '\n';
-	return ;
-}
-
-
-int partition(int a[], int l, int h) {
-	int pivot = a[h];
-	int i = l - 1;
-	for (int j = l; j < h; ++j) {
-		if(pivot > a[j]) {
-			++i;
-			swap(a[i], a[j]);
-		}
-	}
-	swap(a[i + 1], a[h]);
-	return (i + 1);
-}
-
-void Quicksort(int a[], int l, int h){
-	if(l < h) {
-		int pivot = partition(a, l, h);
-		Quicksort(a, l, pivot - 1);
-		Quicksort(a, pivot + 1, h);
-	}
-}
-
-
-
 class Heap {
 	private:
 	vector<int> a;
@@ -66,10 +17,10 @@ class Heap {
 	void insert(int x) {
 		// if()
 		// a.push_back(x);
-		// if(size >= a.size())
-			// return ;
-		a[size] = x;
-		++size;
+		if(this->size >= a.size())
+			return ;
+		a[this->size] = x;
+		++(this->size);
 	}
 
 	void heapify(int i) {
@@ -93,14 +44,14 @@ class Heap {
 	}
 
 	void build_heap() {
-		for(int i = size/2; i >= 0; --i)
+		for(int i = this->size/2; i >= 0; --i)
 			heapify(i);
 	}
 
 	void heapsort() {
 		build_heap();
-		int tmp = size;
-		for (int i = size - 1; i >= 0; --i) {
+		int tmp = this->size;
+		for (int i = this->size - 1; i >= 0; --i) {
 			// swap(a[0], a[i]);
 			int t = a[0];
 			a[0] = a[i];
@@ -113,10 +64,10 @@ class Heap {
 
 	void print() {
 		// for (int i = 0; i < a.size(); ++i)
-		for (int i = 0; i < size; ++i) {
+		for (int i = 0; i < this->size; ++i) {
 			cout << a[i] << " ";
 		}
-		cout << endl;
+		cout << '\n';
 	}
 };
 
