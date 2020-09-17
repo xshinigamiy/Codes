@@ -29,13 +29,13 @@ class Phone {
 		Phone() {
 			name.clear();
 			phone.clear();
-      delete root;
+			delete root;
 			root = getNode();
 		}
     
 		virtual ~Phone() {
-      cnt = -1;
-      delete root;
+			cnt = -1;
+			delete root;
 		}
 
 		void insertTrie(string Number, string Name) {
