@@ -88,7 +88,7 @@ class Phone {
 				for (auto &s: r) {
 					cout << s << " ";
 				}
-				cout << '\n';
+// 				cout << '\n';
 			}
 		}
 };
