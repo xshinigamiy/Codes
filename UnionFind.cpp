@@ -51,16 +51,54 @@ void Union(int A , int B){
 	}
 }
 
+class UnionSet {
+public:
+    UnionSet(int size) {
+        for (int i = 0; i < size; ++i) {
+            par.push_back(i);
+            rank.push_back(1);
+        }
+    }
+    
+    //Merge using Rank
+    void merge(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX == rootY) return ;
+        if (rank[rootX] == rank[rootY]) {
+            par[rootY] = rootX;
+        } else if (rank[rootX] > rank[rootY]) {
+            par[rootY] = rootX;
+        } else {
+            par[rootX] = rootY;
+        }
+    }
+    
+    //Find using path compression
+    int find(int node) {
+        if (node == par[node]) return node;
+        return par[node] = find(par[node]);
+    }
+    
+    bool isConnected(int x, int y) {
+        return find(x) == find(y);
+    }
+private:
+    vector<int> par, rank;
+};
+
+//Create UnionSet class object using
+//UnionSet us(1e5);
+
 
 int main(){
 	for(int i = 0; i < 5 ; i++)
 		makeSet(i);
-
-	Union(1,2);
-	Union(3,2);
-	Union(1,3);
-	Union(3,4);
-	Union(0,4);
-	for(int i=0;i<5;i++)
-		printf("%d\n",findSet(i));
+	Union(1, 2);
+	Union(3, 2);
+	Union(1, 3);
+	Union(3, 4);
+	Union(0, 4);
+	for(int i = 0; i < 5; i++)
+		printf("%d\n", findSet(i));
 }
